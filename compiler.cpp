@@ -18,15 +18,11 @@ vector<string> aliasVals;
 unsigned long int nextAddr = 11;
 
 string file_name_arg;
-bool dont_optimize_bf_arg; // --no_optimize, -n
-bool warnings_arg; // --no_warning, -w
+bool dont_optimize_bf_arg = false; // --no_optimize, -n
+bool no_warnings_arg = false; // --no_warning, -w
 bool help_arg; // --help, -h
 bool verbose_arg; // --verbose, -v
 bool output_file; // --output, -o
-
-void parse_args(int argc, char* argv[]) {
-    
-}
 
 void help_menu(int argc, char* argv[]) {
     cout << "Usage:" << endl <<
@@ -39,6 +35,46 @@ void help_menu(int argc, char* argv[]) {
             "   --output, -o <file>     Sets output file" << endl <<
             "   --no_warning, -w        Doesn't display BF warnings - NOT RECOMENDED" << endl <<
             "   --no_optimize, -n       Doesn't optimize BF by removing useless character sequences - NOT RECOMENDED" << endl;
+    exit(2);
+}
+
+void parse_args(int argc, char* argv[]) {
+    int i = 1;
+    bool input_file_found;
+    while (i <= (argc - 1)) {
+        if (argv[i] == "--no_optimize" || argv[i] == "-n") {
+            dont_optimize_bf_arg = true;
+        } else if (argv[i] == "--no_warning" || argv[i] == "-w") {
+            no_warnings_arg = true;
+        } else if (argv[i] == "--help" || argv[i] == "-h") {
+            help_menu(argc, argv);
+        } else if (argv[i] == "--verbose" || argv[i] == "-v") {
+            verbose_arg = true;
+        } else if (argv[i] == "--output" || argv[i] == "-o") {
+            i ++;
+            if (i < (argc - 1)) {
+                output_file = argv[i];
+            } else {
+                cerr << "Value not found for " << argv[i-1] << endl;
+                help_menu(argc, argv); 
+            }
+        } else {
+            if (!input_file_found) {
+                file_name_arg = argv[i];
+                input_file_found = true;
+            } else {
+                cerr << "To many arguments." << endl;
+                help_menu(argc, argv);
+            }
+        }
+
+        i++;
+    }
+
+    if (!input_file_found) {
+        cerr << "No input file specified." << endl;
+        help_menu(argc, argv);
+    }
 }
 
 typedef struct {
@@ -51,14 +87,12 @@ typedef struct {
 void error(string msg, ProgPos pos) {
     cerr << "Error in line " << pos.line << " of " << pos.prgm_name << endl;
     cerr << msg << endl;
+    exit(1);
 }
 
 string optimize_bf(string data) {
     string output;
-    char lastChar = '~';
-    for(unsigned long int i = 0; i < data.size(); i++) {
-        
-    }
+    output = data;
     return output;
 }
 
@@ -163,12 +197,10 @@ void compile(vector<string> program, string program_name) {
 
                 } else {
                     error("Fatal error: Could not import file: \n", pos);
-                    exit(-1);
                 }
             }
         } else {
             error("Invalid operation \"" + chunks[0] + "\"", pos);
-            exit(0);
         }
     }
 }

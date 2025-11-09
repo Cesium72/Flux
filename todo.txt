@@ -1,5 +1,10 @@
 
 TODO
 
-1. @ for imports
-2. 
+[ ] Argument parsing
+[ ] @ for sytem imports
+[ ] Aliases
+[ ] Executing macros
+[ ] Stdlib
+[ ] If statements
+[ ] Outputing to a file
