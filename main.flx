@@ -1,0 +1,58 @@
+
+import stdlib.bfc
+
+// Types
+
+type string256 256
+type string128 128
+type string64 64
+type string32 32
+type string16 16
+type string8 8
+type string4 4
+type string2 2
+type char 1
+
+alias string1 b8_t
+alias string1 byte
+alias string1 char
+alias string1 word
+alias string128 sentence
+
+
+// Print 8 byte string
+
+macro print8 string8
+
+to $$1
+
+rep .> 8
+rep < 8
+
+/macro
+
+new string8 hi
+
+// print8 hi
+
+macro print256 string256
+
+to $$1
+
+rep .> 255
+rep < 255
+
+/macro
+
+new string256 msg
+
+// print256 msg
+
+// print
+
+
+
+
+// TEST
+
+rep > 8

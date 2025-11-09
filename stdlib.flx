@@ -1,0 +1,17 @@
+type string256 256
+type string128 128
+type string64 64
+type string32 32
+type string16 16
+type string8 8
+type string4 4
+type string2 2
+type string1 1
+
+alias string1 b8_t
+alias string1 byte
+alias string1 char
+alias string1 word
+alias string128 sentence
+
+rep < 8
